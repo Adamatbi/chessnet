@@ -76,7 +76,8 @@ def get_player(username,con,cur,Verbose=False):
     player = get_player_info(username,Verbose)
     games = get_player_games(username,Verbose)
     cur.execute("insert into players values {}".format(str(player)))
-    cur.execute("insert into games values {}".format(str(games)[1:-1]))
+    if len(games)>0:
+        cur.execute("insert into games values {}".format(str(games)[1:-1]))
     con.commit()
 
 def get_target_usernames(con,cur):
@@ -99,7 +100,8 @@ def run(Verbose=False):
                     try:
                         get_player(username,con,cur,Verbose)
                     except Exception as e:
-                        print("ERROR: "+e)
+                        print("ERROR:")
+                        print(e)
                         with open("failed.txt",'a') as f:
                             f.write(username+"\n")
 
