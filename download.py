@@ -94,8 +94,8 @@ def run(Verbose=False):
             while True:
                 if Verbose:
                     print("parsing target usernames from database")
-                else:
-                    target_usernames = get_target_usernames(con,cur)
+                
+                target_usernames = get_target_usernames(con,cur)
                 for username in tqdm(target_usernames,disable=not Verbose):
                     try:
                         get_player(username,con,cur,Verbose)
